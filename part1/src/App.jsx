@@ -9,20 +9,32 @@ const Header = (props) => {
 };
 
 export const Content = (props) => {
-  return(
+  return (
+    <>
+      <Part part={props.part1} exercise={props.exercise1} />
+      <Part part={props.part2} exercise={props.exercise2} />
+      <Part part={props.part3} exercise={props.exercise3} />
+    </>
+  );
+};
+
+export const Part = (props) => {
+  return (
     <>
       <p>
-        {props.part} {props.exercises}
+        {props.part} {props.exercise}
       </p>
     </>
-  )
+  );
 };
 
 const Total = (props) => {
   return (
-   <p> Number of exercises {props.exercise1 + props.exercise2 + props.exercise3}</p>
-  )
-}
+    <p>
+      Number of exercises {props.exercise1 + props.exercise2 + props.exercise3}
+    </p>
+  );
+};
 
 const App = () => {
   // Variables at the top
@@ -36,13 +48,21 @@ const App = () => {
   return (
     <>
       <Header nameCourse={course} />
-      <Content part = {part1} exercises = {exercises1} />
-      <Content part = {part2} exercises = {exercises2} />
-      <Content part = {part3} exercises = {exercises3} />
-      <Total exercise1 = {exercises1} exercise2 = {exercises2} exercise3 = {exercises3}></Total>
+      <Content
+        part1={part1}
+        exercise1={exercises1}
+        part2={part2}
+        exercise2={exercises2}
+        part3={part3}
+        exercise3={exercises3}
+      />
+      <Total
+        exercise1={exercises1}
+        exercise2={exercises2}
+        exercise3={exercises3}
+      ></Total>
     </>
   );
 };
 
 export default App;
-
