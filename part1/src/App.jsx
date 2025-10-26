@@ -19,12 +19,11 @@ const Part = (props) => {
 };
 
 const Content = (props) => {
-  const p = props.content 
-  return(
-    p.map((p) => <Part part={p.name.toString()} exercise={p.exercises.toString()} />)
-  );
+  const p = props.content;
+  return p.map((p) => (
+    <Part part={p.name.toString()} exercise={p.exercises.toString()} />
+  ));
 };
-
 
 const Total = (props) => {
   let total = 0;
@@ -35,27 +34,29 @@ const Total = (props) => {
 
 const App = () => {
   // Variables at the top
-  const course = "Half Stack application development";
-  const parts = [
-    {
-      name: "Fundamentals of React",
-      exercises: 10,
-    },
-    {
-      name: "Using props to pass data",
-      exercises: 7,
-    },
-    {
-      name: "State of a component",
-      exercises: 14,
-    },
-  ];
+  const course = {
+    name: "Half Stack application development",
+    parts: [
+      {
+        name: "Fundamentals of React",
+        exercises: 10,
+      },
+      {
+        name: "Using props to pass data",
+        exercises: 7,
+      },
+      {
+        name: "State of a component",
+        exercises: 14,
+      },
+    ],
+  };
 
   return (
     <>
-      <Header nameCourse={course} />
-      <Content content={parts} />
-      <Total sum={parts} />
+      <Header nameCourse={course.name} />
+      <Content content={course.parts} />
+      <Total sum={course.parts} />
     </>
   );
 };
