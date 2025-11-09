@@ -1,21 +1,39 @@
 import { useState } from "react";
 
+const Button = ({ eventHandler, text }) => (
+  <button onClick={eventHandler}>{text}</button>
+);
 
-const Statistics = ({ allClicks, average, good }) => {
+const StatisticLine = ({ text, value }) => (
+  <tr>
+    <td>{text}</td><td>{value}</td>
+  </tr>
+);
+
+const Statistics = ({ allClicks, average, good, neutral, bad }) => {
   if (allClicks == 0) {
-    return <p>No hay informacion para mostrar</p>;
+    return <p>No feedback given</p>;
   } else {
     return (
       <>
         <h1>Statistics</h1>
-        <p>all {allClicks}</p>
-        <p>average {average / allClicks}</p>
-        <p>positive {(good * 100) / allClicks}%</p>
+        <table>
+          <tbody>
+            <StatisticLine text="good" value={good} />
+            <StatisticLine text="neutral" value={neutral} />
+            <StatisticLine text="bad" value={bad} />
+            <StatisticLine text="all" value={allClicks} />
+            <StatisticLine text="average" value={average / allClicks} />
+            <StatisticLine
+              text="positive"
+              value={(good * 100) / allClicks + "%"}
+            />
+          </tbody>
+        </table>
       </>
     );
   }
 };
-
 
 const App = () => {
   const [clicks, setClicks] = useState({
@@ -51,16 +69,17 @@ const App = () => {
     <div>
       <h1>Give Feedback</h1>
 
-      <button onClick={handlerButtonGood}>Good</button>
-      <button onClick={handlerButtonNeutral}>Neutral</button>
-      <button onClick={handlerButtonBad}>Bad</button>
+      <Button eventHandler={handlerButtonGood} text="Good" />
+      <Button eventHandler={handlerButtonNeutral} text="Neutral" />
+      <Button eventHandler={handlerButtonBad} text="Bad" />
 
-
-      <p>good {clicks.good}</p>
-      <p>neutral {clicks.neutral}</p>
-      <p>bad {clicks.bad}</p>
-
-      <Statistics allClicks={clicks.allClicks} average={clicks.average} good={clicks.good} />
+      <Statistics
+        allClicks={clicks.allClicks}
+        average={clicks.average}
+        good={clicks.good}
+        neutral={clicks.neutral}
+        bad={clicks.bad}
+      />
     </div>
   );
 };
