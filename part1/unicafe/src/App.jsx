@@ -1,25 +1,20 @@
 import { useState } from "react";
 
-const Average = ({data , cantidad}) => {
-  if(data == 0){
-    return <p>No hay informacion disponible para mostrar</p>
-  }else{
-    return <p>average {data / cantidad}</p>
+
+const Statistics = ({ allClicks, average, good }) => {
+  if (allClicks == 0) {
+    return <p>No hay informacion para mostrar</p>;
+  } else {
+    return (
+      <>
+        <h1>Statistics</h1>
+        <p>all {allClicks}</p>
+        <p>average {average / allClicks}</p>
+        <p>positive {(good * 100) / allClicks}%</p>
+      </>
+    );
   }
-}
-
-const Positive = ({good , cantidad}) =>{
-
-  if(good == 0){
-    return <p>No hay informacion disponible para mostrar</p>
-  }else{
-    return <p>positive {(good * 100) / cantidad}</p>
-  }
-
-}
-
-
-
+};
 
 
 const App = () => {
@@ -35,21 +30,21 @@ const App = () => {
       ...clicks,
       good: clicks.good + 1,
       allClicks: clicks.allClicks + 1,
-      average: (clicks.average + 1),
+      average: clicks.average + 1,
     });
   const handlerButtonNeutral = () =>
     setClicks({
       ...clicks,
       neutral: clicks.neutral + 1,
       allClicks: clicks.allClicks + 1,
-      average: (clicks.average + 0) ,
+      average: clicks.average + 0,
     });
   const handlerButtonBad = () =>
     setClicks({
       ...clicks,
       bad: clicks.bad + 1,
       allClicks: clicks.allClicks + 1,
-      average: (clicks.average - 1),
+      average: clicks.average - 1,
     });
 
   return (
@@ -60,14 +55,12 @@ const App = () => {
       <button onClick={handlerButtonNeutral}>Neutral</button>
       <button onClick={handlerButtonBad}>Bad</button>
 
-      <h1>Statistics</h1>
+
       <p>good {clicks.good}</p>
       <p>neutral {clicks.neutral}</p>
       <p>bad {clicks.bad}</p>
 
-      <p>all {clicks.allClicks}</p>
-      <Average data = {clicks.average} cantidad = {clicks.allClicks}/>
-      <Positive good = {clicks.good} cantidad={clicks.allClicks}/>
+      <Statistics allClicks={clicks.allClicks} average={clicks.average} good={clicks.good} />
     </div>
   );
 };
